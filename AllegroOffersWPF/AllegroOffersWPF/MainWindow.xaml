@@ -1,0 +1,25 @@
+﻿<Window x:Class="AllegroOffersWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AllegroOffersWPF"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <TextBox x:Name="textBoxProductName" HorizontalAlignment="Left" Height="24" Margin="565,95,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="217"/>
+        <TextBox x:Name="textBoxClientId" HorizontalAlignment="Left" Height="22" Margin="627,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="155"/>
+        <TextBox x:Name="textBoxClientSecret" HorizontalAlignment="Left" Height="23" Margin="644,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="138"/>
+        <TextBox x:Name="textBoxPriceFrom" HorizontalAlignment="Left" Height="23" Margin="622,129,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="55"/>
+        <TextBox x:Name="textBoxPriceTo" HorizontalAlignment="Left" Height="23" Margin="727,129,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="55"/>
+        <DataGrid x:Name="dataGridAllegro" ItemsSource="{Binding}" HorizontalAlignment="Left" Height="200" Margin="10,10,0,0" VerticalAlignment="Top" Width="550"/>
+        <DataGrid x:Name="dataGridDB" ItemsSource="{Binding}" HorizontalAlignment="Left" Height="194" Margin="10,215,0,0" VerticalAlignment="Top" Width="550"/>
+        <Label x:Name="labelItem" Content="Nazwa przedmiotu:" HorizontalAlignment="Left" Margin="565,69,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="buttonSearch" Content="Pobierz dane" HorizontalAlignment="Left" Margin="707,168,0,0" VerticalAlignment="Top" Width="75" Click="ButtonSearch_Click"/>
+        <Label x:Name="labelClientId" Content="Client Id:" HorizontalAlignment="Left" Margin="565,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.289,0.154"/>
+        <Label x:Name="labelClientSecret" Content="Client Secret:" HorizontalAlignment="Left" Margin="565,41,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="labelPriceFrom" Content="Cena od:" HorizontalAlignment="Left" Margin="565,126,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="labelPriceTo" Content="do:" HorizontalAlignment="Left" Margin="695,126,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.926,0.462"/>
+
+    </Grid>
+</Window>
