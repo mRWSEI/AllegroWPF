@@ -12,17 +12,15 @@ namespace AllegroOffersWPF
 {
     public partial class MainWindow
     {
-        private void SearchItem(AllegroRest Rest, string ItemName)
+        private async void SearchItem(string ProductName) //AllegroRest Rest, string ItemName
         {
             try
             {
-                
-                //var z = rest.GetTokenK();
-                var x = Rest.GetTokenJ().Result;
+                var x = rest.GetTokenJ().Result;
                 //show token
-                //MessageBox.Show(String.Format("Access Token: {0}", Rest.accessToken));
+                //MessageBox.Show(String.Format("Access Token: {0}", rest.accessToken));
 
-                AllegroOffersWPF.Rootobject searchResponse = Rest.requestSearchItem(ItemName);
+                AllegroOffersWPF.Rootobject searchResponse = rest.requestSearchItem(ProductName);
                 GetItemsCollection(searchResponse);
                 //searchResponse.categories.ToString();
             }
@@ -30,12 +28,14 @@ namespace AllegroOffersWPF
             {
                 MessageBox.Show(ex.Message);
                 //return null;
-            }
+            }            
         }
 
         private void GetItemsCollection(Rootobject ItemsClass)
         {
-            allegroItems.Clear();
+            //Dt.Clear();
+            //allegroItems.Clear();
+            List<AllegroItem> abc = new List<AllegroItem>();
             var items = ItemsClass.items.regular;
             foreach (var item in items)
             {
@@ -56,10 +56,12 @@ namespace AllegroOffersWPF
                 itemObj.PriceItem = Convert.ToDecimal(item.sellingMode.price.amount.Replace(".",","));
                 itemObj.StockQuantity = Convert.ToInt32(item.stock.available);
 
-                allegroItems.Add(itemObj);
+                //allegroItems.Add(itemObj);
+                abc.Add(itemObj);
             }
             //return allegroItems;
-            Dt = ConvertToDataTable(allegroItems); //dt
+                        dt = ConvertToDataTable(abc); //dt
+            //return ConvertToDataTable(abc); //dt
             //DataTable dt2 = CreateDataTable<AllegroItem>(allegroItems);
         }
 

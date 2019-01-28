@@ -12,8 +12,8 @@
         <TextBox x:Name="textBoxClientSecret" HorizontalAlignment="Left" Height="23" Margin="644,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="138"/>
         <TextBox x:Name="textBoxPriceFrom" HorizontalAlignment="Left" Height="23" Margin="622,129,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="55"/>
         <TextBox x:Name="textBoxPriceTo" HorizontalAlignment="Left" Height="23" Margin="727,129,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="55"/>
-        <DataGrid x:Name="dataGridAllegro" ItemsSource="{Binding}" HorizontalAlignment="Left" Height="200" Margin="10,10,0,0" VerticalAlignment="Top" Width="550"/>
-        <DataGrid x:Name="dataGridDB" ItemsSource="{Binding}" HorizontalAlignment="Left" Height="194" Margin="10,215,0,0" VerticalAlignment="Top" Width="550"/>
+        <DataGrid x:Name="dataGridAllegro" ItemsSource="{Binding}" IsReadOnly="True" HorizontalAlignment="Left" Height="200" Margin="10,10,0,0" VerticalAlignment="Top" Width="550" IsSynchronizedWithCurrentItem="True"/>
+        <DataGrid x:Name="dataGridDB" ItemsSource="{Binding}" IsReadOnly="True" HorizontalAlignment="Left" Height="194" Margin="10,215,0,0" VerticalAlignment="Top" Width="550"/>
         <Label x:Name="labelItem" Content="Nazwa przedmiotu:" HorizontalAlignment="Left" Margin="565,69,0,0" VerticalAlignment="Top"/>
         <Button x:Name="buttonSearch" Content="Pobierz dane" HorizontalAlignment="Left" Margin="707,168,0,0" VerticalAlignment="Top" Width="75" Click="ButtonSearch_Click"/>
         <Label x:Name="labelClientId" Content="Client Id:" HorizontalAlignment="Left" Margin="565,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.289,0.154"/>

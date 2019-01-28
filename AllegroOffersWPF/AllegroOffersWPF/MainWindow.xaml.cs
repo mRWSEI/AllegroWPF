@@ -36,6 +36,11 @@ namespace AllegroOffersWPF
 
             InitializeComponent();
 
+            textBoxClientId.Text = "";
+            textBoxClientSecret.Text = "";
+
+            rest = new AllegroRest(textBoxClientId.Text, textBoxClientSecret.Text);
+
             dataGridAllegro.AutoGenerateColumns = true;
             //dataGridAllegro.ItemsSource = allegroItems;
             dataGridAllegro.DataContext = allegroItems;
@@ -53,23 +58,68 @@ namespace AllegroOffersWPF
         }
 
 
-        private void ButtonSearch_Click(object sender, RoutedEventArgs e)
+        private async void ButtonSearch_Click(object sender, RoutedEventArgs e)
         {
+            buttonSearch.IsEnabled = false;
 
+            //Task T = Task.Run(() => SearchItem(rest, textBoxProductName.Text));
+            //Action a = async () => { SearchItem(rest, textBoxProductName.Text); dataGridAllegro.DataContext = Dt.DefaultView; };
+            //Task.Run(() => /*Search() */ dataGridAllegro.Dispatcher.InvokeAsync(() => a));
+            //dataGridAllegro.DataContext = dt.DefaultView;
 
-            //buttonSearch.IsEnabled = false;
-            rest = new AllegroRest(textBoxClientId.Text, textBoxClientSecret.Text);
-            /*Task T = Task.Run(() => SearchItem(rest, textBoxProductName.Text));
-
+            //var Z = await SearchItem(rest, textBoxProductName.Text);
+            //dataGridAllegro.DataContext = dt.DefaultView;
+            /*
             T.ContinueWith((t) =>
             {
                 dataGridAllegro.DataContext = dt.DefaultView;
                 //buttonSearch.IsEnabled = true;
             }, TaskScheduler.FromCurrentSynchronizationContext());
             */
-            SearchItem(rest, textBoxProductName.Text);
+
+            // dziala ale nie async
+            /*
+            dataGridAllegro.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Background,
+                new Action(delegate () { Search(); }) );
+            */
+
+            //await dataGridAllegro.Dispatcher.InvokeAsync(() => SearchItem(rest, textBoxProductName.Text) ); // dziala alenie async
+
+            //System.Threading.Thread test = new System.Threading.Thread(new System.Threading.ThreadStart(Search));
+            //test.Start();
+            // SearchItem(rest, textBoxProductName.Text
+
+            /*
+            Task T =  Task.Run(SearchItem(rest, textBoxProductName.Text) );
+            
+            T.ContinueWith((t) =>
+            {
+                dataGridAllegro.Dispatcher.InvokeAsync(() => dataGridAllegro.DataContext = Dt.DefaultView);
+                dataGridAllegro.Dispatcher.InvokeAsync(() => buttonSearch.IsEnabled = true);
+            }, TaskScheduler.FromCurrentSynchronizationContext());
+            */
+            //await Task.Run(() => dataGridAllegro.Dispatcher.InvokeAsync(() => { SearchItem(rest, textBoxProductName.Text); buttonSearch.IsEnabled = true; }));
+            //dataGridAllegro.DataContext = Dt.DefaultView;
+            //dataGridAllegro.Dispatcher.InvokeAsync(() => dataGridAllegro.DataContext = Dt.DefaultView);
+            var productName = textBoxProductName.Text;
+
+            await Task.Run(() => SearchItem(productName));
+            // SearchItem(rest, textBoxProductName.Text);
+            dataGridAllegro.ItemsSource = dt.DefaultView;
+
+            //SearchItem(rest, textBoxProductName.Text);
             //dataGridAllegro.DataContext = Dt.DefaultView;
             //dataGridViewAllegro.Refresh(); 
+
+            buttonSearch.IsEnabled = true;
+        }
+
+        private async void Search()
+        {
+//                SearchItem(rest, textBoxProductName.Text);
+            //dataGridAllegro.DataContext = Dt.DefaultView;
+            //await dataGridAllegro.Dispatcher.InvokeAsync(() => SearchItem(rest, textBoxProductName.Text));
+            
         }
     }
 }
