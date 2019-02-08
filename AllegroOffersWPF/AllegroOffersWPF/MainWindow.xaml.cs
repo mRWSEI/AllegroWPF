@@ -1,19 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Data;
-using Newtonsoft.Json;
+using AllegroClass;
+
 
 namespace AllegroOffersWPF
 {
@@ -36,14 +30,18 @@ namespace AllegroOffersWPF
 
             InitializeComponent();
 
-            textBoxClientId.Text = "";
-            textBoxClientSecret.Text = "";
-
+            textBoxClientId.Text = "0069626c63e2456282e868e6ee62cad2";
+            textBoxClientSecret.Text = "oUjfWSVkSC4FDNGFHnqBkqJV3mBLPyRpAzadKOpICPF6kq2tFJQSlsaImffod9w4";
             rest = new AllegroRest(textBoxClientId.Text, textBoxClientSecret.Text);
 
+            buttonSearch.IsEnabled = false;
+
+            // grid initialization
             dataGridAllegro.AutoGenerateColumns = true;
-            //dataGridAllegro.ItemsSource = allegroItems;
             dataGridAllegro.DataContext = allegroItems;
+            //dataGridDB.AutoGenerateColumns = true;
+            //dataGridDB.ItemsSource = db.InitBinding();
+            //dataGridDB.DataMember = "Table";
 
             DBMethods db = new DBMethods();
             if (!db.CheckDBExists())
@@ -51,13 +49,11 @@ namespace AllegroOffersWPF
                 throw new Exception("Błąd podłączenia bazy danych");
             }
 
-            // inicjalizacja grida
-            //dataGridDB.AutoGenerateColumns = true;
-            //dataGridDB.ItemsSource = db.InitBinding();
-            //dataGridDB.DataMember = "Table";
+            textBoxProductName.Focus();
         }
 
 
+        #region Button Clicks
         private async void ButtonSearch_Click(object sender, RoutedEventArgs e)
         {
             buttonSearch.IsEnabled = false;
@@ -102,8 +98,10 @@ namespace AllegroOffersWPF
             //dataGridAllegro.DataContext = Dt.DefaultView;
             //dataGridAllegro.Dispatcher.InvokeAsync(() => dataGridAllegro.DataContext = Dt.DefaultView);
             var productName = textBoxProductName.Text;
+            var priceFrom = textBoxPriceFrom.Text;
+            var priceTo = textBoxPriceTo.Text;
 
-            await Task.Run(() => SearchItem(productName));
+            await Task.Run(() => SearchItem(productName, priceFrom, priceTo));
             // SearchItem(rest, textBoxProductName.Text);
             dataGridAllegro.ItemsSource = dt.DefaultView;
 
@@ -113,13 +111,32 @@ namespace AllegroOffersWPF
 
             buttonSearch.IsEnabled = true;
         }
+        #endregion
 
-        private async void Search()
+        #region TextBox Events
+        private void TextBoxClientId_TextChanged(object sender, TextChangedEventArgs e)
         {
-//                SearchItem(rest, textBoxProductName.Text);
-            //dataGridAllegro.DataContext = Dt.DefaultView;
-            //await dataGridAllegro.Dispatcher.InvokeAsync(() => SearchItem(rest, textBoxProductName.Text));
-            
+            if (String.IsNullOrWhiteSpace(textBoxClientId.Text))
+                buttonSearch.IsEnabled = false;
+            else
+                buttonSearch.IsEnabled = true;
         }
+
+        private void TextBoxClientSecret_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (String.IsNullOrWhiteSpace(textBoxClientSecret.Text))
+                buttonSearch.IsEnabled = false;
+            else
+                buttonSearch.IsEnabled = true;
+        }
+
+        private void TextBoxProductName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (String.IsNullOrWhiteSpace(textBoxProductName.Text))
+                buttonSearch.IsEnabled = false;
+            else
+                buttonSearch.IsEnabled = true;
+        }
+        #endregion
     }
 }

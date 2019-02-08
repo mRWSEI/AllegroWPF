@@ -5,6 +5,12 @@ VisualStudioVersion = 15.0.28307.136
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AllegroOffersWPF", "AllegroOffersWPF\AllegroOffersWPF.csproj", "{14D470C6-7651-4604-87DF-99529437BF22}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AllegroClass", "AllegroClass\AllegroClass.csproj", "{97EBB4F5-00DC-4FB5-A256-4C4CDFEF4030}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AllegroUnitTest", "AllegroUnitTest\AllegroUnitTest.csproj", "{EEB2E6A3-ACC8-4349-A8D7-177FA216F10F}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SetupProject", "SetupProject\SetupProject.vdproj", "{69060956-315F-444D-A490-7BC99C0C2149}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +21,16 @@ Global
 		{14D470C6-7651-4604-87DF-99529437BF22}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{14D470C6-7651-4604-87DF-99529437BF22}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{14D470C6-7651-4604-87DF-99529437BF22}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97EBB4F5-00DC-4FB5-A256-4C4CDFEF4030}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97EBB4F5-00DC-4FB5-A256-4C4CDFEF4030}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97EBB4F5-00DC-4FB5-A256-4C4CDFEF4030}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97EBB4F5-00DC-4FB5-A256-4C4CDFEF4030}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEB2E6A3-ACC8-4349-A8D7-177FA216F10F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEB2E6A3-ACC8-4349-A8D7-177FA216F10F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEB2E6A3-ACC8-4349-A8D7-177FA216F10F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEB2E6A3-ACC8-4349-A8D7-177FA216F10F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69060956-315F-444D-A490-7BC99C0C2149}.Debug|Any CPU.ActiveCfg = Debug
+		{69060956-315F-444D-A490-7BC99C0C2149}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

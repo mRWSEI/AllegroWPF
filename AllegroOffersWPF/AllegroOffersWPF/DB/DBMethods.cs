@@ -4,9 +4,6 @@ using System.Data;
 using System.Data.SQLite;
 using System.Data.SQLite.Linq;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AllegroOffersWPF
 {
@@ -14,7 +11,7 @@ namespace AllegroOffersWPF
     {
         public DBMethods()
         {
-            //konstruktor
+            //empty constructor
         }
 
         private SQLiteDataAdapter m_oDataAdapter = null;
@@ -26,25 +23,25 @@ namespace AllegroOffersWPF
 
 
         /// <summary>
-        /// Metoda tworząca komunikat błędu
+        /// Method creating error message
         /// </summary>
         /// <param name="Ex"></param>
-        /// <param name="Komunikat"></param>
+        /// <param name="Message"></param>
         /// <returns></returns>
-        public string ErrorMessages(Exception Ex, string Komunikat)
+        public string ErrorMessages(Exception Ex, string Message)
         {
             string errorMSG = null;
 
             System.Diagnostics.StackFrame stackFrame = new System.Diagnostics.StackFrame(1);
             var methodName = stackFrame.GetMethod().Name;
-            errorMSG = $"Błąd {methodName}: {Komunikat} - {Ex.Message}";
+            errorMSG = $"Błąd {methodName}: {Message} - {Ex.Message}";
             return errorMSG;
         }
 
 
-        #region Obsluga pliku sqlite i jego struktury
+        #region Validation sqlite file structure
         /// <summary>
-        /// Sprawdza czy istnieje plik z bazą danych jeśli nie to wywołuje CreateDB
+        /// Check if database exist if not then create new one
         /// </summary>
         /// <returns></returns>
         public bool CheckDBExists()
@@ -68,7 +65,7 @@ namespace AllegroOffersWPF
         }
 
         /// <summary>
-        /// Tworzy plik sqlite z bazą danych oraz tabele
+        /// Create sqlite file and fills it with tables
         /// </summary>
         /// <returns></returns>
         public bool CreateDB()
@@ -91,7 +88,7 @@ namespace AllegroOffersWPF
         }
 
         /// <summary>
-        /// Tworzy tabelę allegroOffers jeśli nie istnieje w pliku sqlite
+        /// Create table allegroOffers if not exist
         /// </summary>
         /// <param name="dbPath"></param>
         /// <returns></returns>

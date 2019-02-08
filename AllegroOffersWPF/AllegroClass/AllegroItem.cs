@@ -1,16 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace AllegroOffersWPF
+namespace AllegroClass
 {
-    class AllegroItem
+    /// <summary>
+    /// Class containing properties of AllegroItem (serialization)
+    /// </summary>
+    public class AllegroItem
     {
         public AllegroItem()
         {
-
+            // empty constructor is required for proper work
         }
         private long productId;
         private string itemName;

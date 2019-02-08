@@ -2,40 +2,37 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
+using AllegroClass;
 
 namespace AllegroOffersWPF
 {
     public partial class MainWindow
     {
-        private async void SearchItem(string ProductName) //AllegroRest Rest, string ItemName
+        private async void SearchItem(string ProductName, string PriceFrom, string PriceTo) //AllegroRest Rest, string ItemName
         {
             try
             {
                 var x = rest.GetTokenJ().Result;
-                //show token
-                //MessageBox.Show(String.Format("Access Token: {0}", rest.accessToken));
+                //MessageBox.Show(String.Format("Access Token: {0}", rest.accessToken)); //show token
 
-                AllegroOffersWPF.Rootobject searchResponse = rest.requestSearchItem(ProductName);
+                Rootobject searchResponse = rest.requestSearchItem(ProductName, PriceFrom, PriceTo);
                 GetItemsCollection(searchResponse);
-                //searchResponse.categories.ToString();
             }
             catch(Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                //return null;
             }            
         }
 
+        /// <summary>
+        /// Serialize Item requested Class to AllegroItem object
+        /// </summary>
+        /// <param name="ItemsClass"></param>
         private void GetItemsCollection(Rootobject ItemsClass)
         {
-            //Dt.Clear();
-            //allegroItems.Clear();
-            List<AllegroItem> abc = new List<AllegroItem>();
+
+            List<AllegroItem> lAllegroItem = new List<AllegroItem>();
             var items = ItemsClass.items.regular;
             foreach (var item in items)
             {
@@ -56,15 +53,17 @@ namespace AllegroOffersWPF
                 itemObj.PriceItem = Convert.ToDecimal(item.sellingMode.price.amount.Replace(".",","));
                 itemObj.StockQuantity = Convert.ToInt32(item.stock.available);
 
-                //allegroItems.Add(itemObj);
-                abc.Add(itemObj);
+                lAllegroItem.Add(itemObj);
             }
-            //return allegroItems;
-                        dt = ConvertToDataTable(abc); //dt
-            //return ConvertToDataTable(abc); //dt
-            //DataTable dt2 = CreateDataTable<AllegroItem>(allegroItems);
+            dt = ConvertToDataTable(lAllegroItem); // allegro items to DataTable
         }
 
+        /// <summary>
+        /// Converting Allegro Item class to DataTable helper class
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public DataTable ConvertToDataTable<T>(IList<T> data)
         {
             PropertyDescriptorCollection properties =

@@ -1,22 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using API = AllegroOffersWPF.AllegroService;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Threading;
 using RestSharp;
 using System.Net;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using RestSharp.Extensions;
 
-namespace AllegroOffersWPF
+namespace AllegroClass
 {
     //http://luisquintanilla.me/2017/12/25/client-credentials-authentication-csharp/
     //https://gist.github.com/lqdev/5e82a5c856fcf0818e0b5e002deb0c28
+    /// <summary>
+    /// Class for requesting OAuth Token and performing Search Request
+    /// </summary>
     public partial class AllegroRest
     {
         public AllegroRest(string ClientId, string ClientSecret)
@@ -27,7 +25,7 @@ namespace AllegroOffersWPF
 
         private string clientSecret; // button
         private string clientId; // button
-        public string accessToken = "";
+        public string accessToken { get; set; }
 
         private decimal priceFrom;
         public decimal PriceFrom => priceFrom;
@@ -88,6 +86,7 @@ namespace AllegroOffersWPF
             }
         }
    
+        /*
         public string GetTokenK()
         {
             ServicePointManager.Expect100Continue = true;
@@ -116,7 +115,8 @@ namespace AllegroOffersWPF
 
             return "";
         }
-
+        */
+        /*
         public async Task<string> GetAccessToken()
         {
             using(var client = new HttpClient())
@@ -131,8 +131,8 @@ namespace AllegroOffersWPF
                 Dictionary<string, string> postData = new Dictionary<string, string>()
                 {
                     { "grant_type", "client_credentials"},
-                    { "client_id", "aed37b6ec66e41cfab5c2ce667cba86b"},
-                    { "client_secret", "S6qc1CP0EkMKRTZptn25UPACm33cPoEoTVSJMUvhi0lBjioTRZ3CnrITgvS4M6PM"}
+                    { "client_id", "***"},
+                    { "client_secret", "***"}
                 };
 
                 FormUrlEncodedContent content = new FormUrlEncodedContent(postData);
@@ -146,11 +146,33 @@ namespace AllegroOffersWPF
                 return ((dynamic)responseData).access_token;
             }
         }
+        */
 
         //private const string url = "https://api.allegro.pl/offers/listing?phrase=galaxy+s7+gwarancja+clear";
-        public AllegroOffersWPF.Rootobject requestSearchItem(string ItemName)
+        /// <summary>
+        /// Method used for Searching item returns deserialized object
+        /// </summary>
+        /// <param name="ItemName"></param>
+        /// <returns></returns>
+        public AllegroClass.Rootobject requestSearchItem(string PItemName, string PPriceFrom, string PPriceTo)
         {
-            string url = $"https://api.allegro.pl/offers/listing?phrase={ItemName}+clear";
+            string priceFrom = "";
+            if (!String.IsNullOrEmpty(PPriceFrom))
+                priceFrom = $"&price.from={PPriceFrom}";
+
+            string priceTo = "";
+            if (!String.IsNullOrEmpty(PPriceTo))
+                priceTo = @"&price.to="+PPriceTo;
+
+
+            //find offers listed by a particular seller whose price range is from PLN 10 to PLN 1,000 and sort them according to price(low to high): 
+            //https://api.allegro.pl/offers/listing?seller.id={Seller_ID}&price.from=10&price.to=1000&sort=+price
+            //find offers with phrase “czerwona sukienka”: 
+            //https://api.allegro.pl/offers/listing?phrase=czerwona+sukienka
+
+
+            //string url = $"https://api.allegro.pl/offers/listing?phrase={PItemName}+clear";
+            string url = $"https://api.allegro.pl/offers/listing?phrase={PItemName}{priceFrom}{priceTo}+clear";
 
             var client = new RestClient(url);
             var request = new RestRequest(Method.GET);

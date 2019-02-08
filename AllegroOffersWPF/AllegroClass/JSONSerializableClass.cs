@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace AllegroOffersWPF
+namespace AllegroClass
 {
+    /// <summary>
+    /// Class for deserializing Search Request 
+    /// </summary>
         public class Rootobject
         {
             public Items items { get; set; }
