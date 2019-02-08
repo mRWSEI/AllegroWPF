@@ -10,8 +10,10 @@ using Newtonsoft.Json;
 
 namespace AllegroClass
 {
+    //depending on sources:
     //http://luisquintanilla.me/2017/12/25/client-credentials-authentication-csharp/
     //https://gist.github.com/lqdev/5e82a5c856fcf0818e0b5e002deb0c28
+
     /// <summary>
     /// Class for requesting OAuth Token and performing Search Request
     /// </summary>
@@ -44,13 +46,20 @@ namespace AllegroClass
             city = Cty;
         }
 
+
+        /// <summary>
+        /// Class serialization for access OAuthtoken
+        /// </summary>
         class AccessToken
         {
             public string access_token { get; set; }
             public string token_type { get; set; }
             public long expires_in { get; set; }
         }
-
+        /// <summary>
+        /// Task for receiving OAuth token from Allegro
+        /// </summary>
+        /// <returns></returns>
         public async Task<string> GetTokenJ()
         {
             string credentials = String.Format("{0}:{1}", clientId, clientSecret);
